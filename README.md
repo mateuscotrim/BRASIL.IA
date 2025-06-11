@@ -1,4 +1,4 @@
-# C# para Iniciantes - Brasil.IA
+# C# para Iniciantes - BRASIL.IA
 
 Este repositório contém meus estudos e projetos do curso **C# para Iniciantes** oferecido pelo **BRASIL.IA**. Durante o curso, estou aprendendo os fundamentos da linguagem C# e desenvolvendo habilidades práticas para criar aplicações simples e resolver problemas de programação.
 
