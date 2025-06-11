@@ -1,35 +1,28 @@
-# C# para Iniciantes - BRASIL.IA
+![Logo Brasil.IA](https://brasil.ia.inesq.org.br/wp-content/uploads/2025/03/Logo-Brasil-IA-e1741700927564-1024x382.png)
 
-Este repositório contém meus estudos e projetos do curso **C# para Iniciantes** oferecido pelo **BRASIL.IA**. Durante o curso, estou aprendendo os fundamentos da linguagem C# e desenvolvendo habilidades práticas para criar aplicações simples e resolver problemas de programação.
+# C# para Iniciantes - Brasil.IA
 
-## Objetivos do Curso
+Este repositório contém os meus estudos e projetos do curso **C# para Iniciantes** oferecido pelo **Brasil.IA**. Durante o curso, estou aprendendo os fundamentos da linguagem C# e desenvolvendo habilidades práticas para criar aplicações simples e resolver problemas de programação.
 
-<ul>
-  <li>Compreender a <strong>sintaxe básica</strong> do C#.</li>
-  <li>Aprender sobre <strong>variáveis</strong>, <strong>tipos de dados</strong> e <strong>controle de fluxo</strong>.</li>
-  <li>Trabalhar com <strong>funções</strong> e <strong>métodos</strong>.</li>
-  <li>Estudar os conceitos de <strong>orientação a objetos</strong> (OOP) no C#.</li>
-  <li>Explorar <strong>arrays</strong>, <strong>listas</strong> e outras coleções.</li>
-  <li>Entender como <strong>tratar exceções</strong> e garantir a robustez do código.</li>
-</ul>
+## 🎯 Objetivos do Curso
 
-## Estrutura do Repositório
+O curso visa proporcionar uma compreensão profunda dos seguintes conceitos:
 
-<ul>
-  <li><strong>Exercícios</strong>: Códigos e desafios práticos realizados ao longo do curso.</li>
-  <li><strong>Projetos</strong>: Aplicações mais complexas desenvolvidas durante o aprendizado.</li>
-</ul>
+- **Sintaxe básica** do C#.
+- Tipos de **variáveis**, **dados** e **controle de fluxo**.
+- Utilização de **funções** e **métodos**.
+- **Orientação a Objetos (OOP)** no C#.
+- Trabalhar com **arrays**, **listas** e outras coleções.
+- Gerenciamento de **exceções** e **robustez** do código.
 
-## Tecnologias Utilizadas
+## 📂 Estrutura do Repositório
 
-<ul>
-  <li><strong>C#</strong></li>
-</ul>
+Este repositório está organizado da seguinte forma:
 
-## Contribuições
+- **Exercícios**: Códigos e desafios práticos realizados ao longo do curso.
+- **Projetos**: Aplicações mais complexas desenvolvidas durante o aprendizado.
 
-Este repositório é destinado ao meu aprendizado pessoal. No entanto, sinta-se à vontade para fazer sugestões ou contribuir com melhorias.
+## 🤝 Contribuições
 
-## Licença
+Este repositório é destinado ao meu aprendizado pessoal. No entanto, sugestões e contribuições são sempre bem-vindas!
 
-Este projeto é de uso pessoal e não possui uma licença formal.
