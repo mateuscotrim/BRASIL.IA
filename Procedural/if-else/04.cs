@@ -9,8 +9,7 @@ bool B = bool.Parse(Console.ReadLine());
 
 if (A == true && B == true) {
     Console.WriteLine("Ambos são VERDADEIROS");
-} else if (A == false && B == false)
-{
+} else if (A == false && B == false) {
     Console.WriteLine("Ambos são FALSOS");
 } else {
     Console.WriteLine("Um é VERDADEIRO e o outro é FALSO");
