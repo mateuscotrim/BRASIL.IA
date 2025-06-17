@@ -12,19 +12,19 @@ Console.WriteLine("1 - Soma");
 Console.WriteLine("2 - Subtração");
 Console.WriteLine("3 - Multiplicação");
 Console.WriteLine("4 - Divisão");
+Console.WriteLine("5 - Resto da divisão");
 
 int operacao = int.Parse(Console.ReadLine());   
 
-Console.WriteLine("Digite o primeiro número:");
+Console.WriteLine("Digite o primeiro número: ");
 double num1 = double.Parse(Console.ReadLine());  
 
-Console.WriteLine("Digite o segundo número:");
+Console.WriteLine("Digite o segundo número: ");
 double num2 = double.Parse(Console.ReadLine());  
 
 double resultado = 0;
 
-switch (operacao)
-{
+switch (operacao) {
     case 1:
         resultado = num1 + num2;
         Console.WriteLine($"Resultado: {num1} + {num2} = {resultado}");
