@@ -12,5 +12,5 @@ while (sara >= francisco) {
     anos++;
 }
 
-Console.WriteLine($"É necessario {anos} anos para Francisco ser maior que a Sara.");
+Console.WriteLine($"Em {anos} anos, Francisco será mais alto que Sara.");
 
