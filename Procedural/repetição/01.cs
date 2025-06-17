@@ -6,8 +6,7 @@ double sara = 1.50;
 double francisco = 1.10;
 int anos = 0;
 
-while (sara >= francisco)
-{
+while (sara >= francisco) {
     sara += 0.02;
     francisco += 0.03;
     anos++;
