@@ -16,17 +16,3 @@ int mesAtual = DateTime.Now.Month;
 int anoAtual = DateTime.Now.Year;
 
 int idadeAnos = anoAtual - anoNascimento;
-
-if (mesAtual < mesNascimento || (mesAtual == mesNascimento && diaAtual < diaNascimento)) {
-    idadeAnos--;
-}
-
-int idadeMeses = (anoAtual - anoNascimento) * 12 + mesAtual - mesNascimento;
-
-if (mesAtual < mesNascimento) {
-    idadeMeses--;
-}
-
-int idadeDias = idadeAnos * 365 + idadeMeses * 30 + (diaAtual - diaNascimento);
-
-Console.WriteLine($"{idadeAnos} anos, {idadeMeses % 12} meses e {idadeDias % 30} dias de vida.");
