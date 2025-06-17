@@ -31,12 +31,12 @@ switch (formaPagamento) {
         break;
 
     case 3:
-        Console.WriteLine($"Valor final a ser pago: R$ {valor:F2} (sem juros, 2x)");
+        Console.WriteLine($"Valor final a ser pago: R$ {valor:F2} (sem juros)");
         break;
 
     case 4:
         calculo = valor + (valor * 0.10);
-        Console.WriteLine($"Valor final a ser pago: R$ {calculo:F2} (com 10% de juros, 3x ou mais)");
+        Console.WriteLine($"Valor final a ser pago: R$ {calculo:F2} (com 10% de juros)");
         break;
 
     default:
