@@ -19,8 +19,7 @@ int formaPagamento = int.Parse(Console.ReadLine());
 
 double calculo;
 
-switch (formaPagamento)
-{
+switch (formaPagamento) {
     case 1:
         calculo = valor - (valor * 0.15);
         Console.WriteLine($"Valor final a ser pago: R$ {calculo:F2}");
