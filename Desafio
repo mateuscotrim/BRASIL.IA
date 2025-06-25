@@ -1,0 +1,299 @@
+double vida = 100;
+int ouro = 0;
+int couro = 0, presas = 0, garras = 0;
+bool temEscudo = false;
+bool temPorcaoDeCura = false;
+bool jogando = true;
+Random random = new Random();
+
+void ExibirStatus()
+{
+    Console.Clear();
+    Console.WriteLine("=== STATUS DO AVENTUREIRO ===");
+    Console.WriteLine($"💖 Vida: {vida}/100 | 🪙 Ouro: {ouro}");
+    Console.WriteLine($"🐄 Couro: {couro} | 🐾 Presas: {presas} | 🦴 Garras: {garras}");
+    Console.WriteLine($"🛡️ Escudo: {(temEscudo ? "Sim" : "Não")}");
+    Console.WriteLine($"🍵 Porção de Cura: {(temPorcaoDeCura ? "Sim" : "Não")}");
+    Console.WriteLine("===========================\n");
+}
+
+void BatalhaComBoss(string nomeBoss, int vidaBoss, int danoBoss)
+{
+    Console.WriteLine($"🌟 Um terrível BOSS apareceu: {nomeBoss}! Ele tem {vidaBoss} de vida.");
+    Console.WriteLine($"⚔️ {nomeBoss} causa {danoBoss} de dano!");
+
+    while (vida > 0 && vidaBoss > 0)
+    {
+        ExibirStatus();
+
+        Console.WriteLine("=== STATUS DO BOSS ===");
+        Console.WriteLine($"👹 {nomeBoss} - Vida: {vidaBoss} | Dano: {danoBoss}");
+        Console.WriteLine("======================\n");
+
+        Console.WriteLine("\nEscolha uma ação:");
+        Console.WriteLine("1 - Atacar BOSS ⚔️");
+        Console.WriteLine("2 - Fugir da batalha 🏃");
+        if (temPorcaoDeCura)
+        {
+            Console.WriteLine("3 - Usar porção de cura 🍵 (recupera 25 de vida)");
+        }
+
+        string escolhaBatalha = Console.ReadLine();
+
+        if (escolhaBatalha == "1")
+        {
+            int danoAtaque = 10 + random.Next(5);
+            vidaBoss -= danoAtaque;
+            Console.WriteLine($"Você atacou {nomeBoss} e causou {danoAtaque} de dano!");
+
+            if (vidaBoss <= 0)
+            {
+                Console.WriteLine($"🎉 Você derrotou {nomeBoss}! Ganhou um grande prêmio!");
+                ouro += 100;
+                couro += 5;
+                presas += 3;
+                garras += 2;
+                break;
+            }
+
+            danoBoss = random.Next(10, 20);
+
+            if (random.Next(100) < 10)
+            {
+                int danoCritico = danoBoss * 2;
+                Console.WriteLine($"🔥 O BOSS causou um DANO CRÍTICO de {danoCritico}!");
+                danoBoss = danoCritico;
+            }
+
+            if (temEscudo && random.Next(100) < 50)
+            {
+                Console.WriteLine("🛡️ O escudo reduziu o dano do BOSS em 50%!");
+                danoBoss /= 2;
+            }
+
+            vida -= danoBoss;
+            Console.WriteLine($"{nomeBoss} atacou e causou {danoBoss} de dano.");
+
+            if (vida <= 0)
+            {
+                Console.WriteLine("💀 Você foi derrotado... Não conseguiu sobreviver!");
+            }
+        }
+        else if (escolhaBatalha == "2")
+        {
+            Console.WriteLine("🏃 Você fugiu da batalha contra o BOSS!");
+            break;
+        }
+        else if (escolhaBatalha == "3" && temPorcaoDeCura)
+        {
+            vida += 25;
+            if (vida > 100) vida = 100;
+            temPorcaoDeCura = false;
+            Console.WriteLine("🍵 Você usou a porção de cura e recuperou 25 de vida.");
+        }
+        else
+        {
+            Console.WriteLine("❌ Opção inválida, tente novamente.");
+        }
+
+        Console.WriteLine("\nPressione qualquer tecla para continuar...");
+        Console.ReadKey();
+    }
+}
+
+while (jogando && vida > 0)
+{
+    ExibirStatus();
+
+    Console.WriteLine("Escolha uma ação:");
+    Console.WriteLine("1 - Minerar ⛏️");
+    Console.WriteLine("2 - Caçar 🦊");
+    Console.WriteLine("3 - Loja 🏪");
+    Console.WriteLine("0 - Sair 🏁");
+
+    string escolha = Console.ReadLine();
+    Console.Clear();
+
+    switch (escolha)
+    {
+        case "1":
+            int ganhoMineracao = 2 + random.Next(6);
+            ouro += ganhoMineracao;
+            Console.WriteLine($"⛏️ Você minerou e ganhou {ganhoMineracao} ouro.");
+
+            if (random.Next(100) < 5)
+            {
+                Console.WriteLine("⚠️ Você foi atacado enquanto minerava!");
+                int danoMineracao = 4 + random.Next(6);
+                if (temEscudo && random.Next(100) < 50)
+                {
+                    Console.WriteLine("🛡️ O escudo bloqueou o ataque!");
+                    danoMineracao = 0;
+                }
+
+                ouro -= ganhoMineracao;
+                vida -= danoMineracao;
+                Console.WriteLine($"Você perdeu {danoMineracao} de vida.");
+                Console.WriteLine($"Você perdeu {ganhoMineracao} ouro que iria ganhar.");
+            }
+
+            if (random.Next(100) < 5)
+            {
+                int bossTipo = random.Next(100);
+                if (bossTipo < 50)
+                {
+                    BatalhaComBoss("Golem de Pedra 🗿", 80, 15);
+                }
+                else
+                {
+                    BatalhaComBoss("Dragão de Lava 🔥", 100, 20);
+                }
+            }
+
+            break;
+
+        case "2":
+            int danoCaca = 5 + random.Next(6);
+            if (random.Next(100) < 30)
+            {
+                Console.WriteLine("🎯 Você evitou o dano durante a caça!");
+                danoCaca = 0;
+            }
+            else
+            {
+                if (temEscudo && random.Next(100) < 50)
+                {
+                    Console.WriteLine("🛡️ O escudo bloqueou o ataque durante a caça!");
+                    danoCaca = 0;
+                }
+
+                vida -= danoCaca;
+                Console.WriteLine($"💥 Você perdeu {danoCaca} de vida durante a caça.");
+            }
+
+            if (random.Next(100) < 10)
+            {
+                int bossTipo = random.Next(100);
+                if (bossTipo < 50)
+                {
+                    BatalhaComBoss("Lobo Gigante 🐺", 50, 12);
+                }
+                else
+                {
+                    BatalhaComBoss("Pantera Sombria 🐆", 60, 14);
+                }
+            }
+            break;
+
+        case "3":
+            Console.WriteLine("=== LOJA ===");
+            Console.WriteLine("1 - Vender Couro (6 ouro cada)");
+            Console.WriteLine("2 - Vender Presas (10 ouro cada)");
+            Console.WriteLine("3 - Vender Garras (15 ouro cada)");
+            Console.WriteLine("4 - Comprar Escudo (50% de proteção) - 50 Ouro");
+            Console.WriteLine("6 - Comprar Porção de Cura (recupera 25 vida) - 30 Ouro");
+            Console.WriteLine("0 - Voltar");
+
+            string escolhaLoja = Console.ReadLine();
+            switch (escolhaLoja)
+            {
+                case "1":
+                    if (couro > 0)
+                    {
+                        int valor = couro * 6;
+                        ouro += valor;
+                        Console.WriteLine($"Você vendeu {couro} couro(s) por {valor} ouro.");
+                        couro = 0;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Você não tem couro para vender.");
+                    }
+                    break;
+
+                case "2":
+                    if (presas > 0)
+                    {
+                        int valor = presas * 10;
+                        ouro += valor;
+                        Console.WriteLine($"Você vendeu {presas} presa(s) por {valor} ouro.");
+                        presas = 0;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Você não tem presas para vender.");
+                    }
+                    break;
+
+                case "3":
+                    if (garras > 0)
+                    {
+                        int valor = garras * 15;
+                        ouro += valor;
+                        Console.WriteLine($"Você vendeu {garras} garra(s) por {valor} ouro.");
+                        garras = 0;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Você não tem garras para vender.");
+                    }
+                    break;
+
+                case "4":
+                    if (ouro >= 50)
+                    {
+                        temEscudo = true;
+                        ouro -= 50;
+                        Console.WriteLine("🛡️ Você comprou um Escudo (50% de proteção contra dano)!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Ouro insuficiente para comprar o escudo.");
+                    }
+                    break;
+
+                case "6":
+                    if (ouro >= 30)
+                    {
+                        temPorcaoDeCura = true;
+                        ouro -= 30;
+                        Console.WriteLine("🍵 Você comprou uma Porção de Cura (recupera 25 de vida)!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Ouro insuficiente para comprar a porção de cura.");
+                    }
+                    break;
+
+                case "0":
+                    break;
+
+                default:
+                    Console.WriteLine("❌ Opção inválida.");
+                    break;
+            }
+            break;
+
+        case "0":
+            jogando = false;
+            Console.WriteLine("🏁 Saindo do jogo...");
+            break;
+
+        default:
+            Console.WriteLine("❌ Opção inválida.");
+            break;
+    }
+
+    Console.WriteLine("\nPressione qualquer tecla para continuar...");
+    Console.ReadKey();
+}
+
+Console.Clear();
+if (vida <= 0)
+{
+    Console.WriteLine("💀 Você morreu. Tente novamente e sobreviva mais tempo!");
+}
+else
+{
+    Console.WriteLine("Jogo encerrado. Até logo! 👋");
+}
