@@ -69,16 +69,16 @@ class Program
                 string descricaoSombria;
 
                 if (encontrouBoss) {
-                    int idx = sorteador.Next(nomesBosses.Length);
-                    nomeDoInimigo = nomesBosses[idx];
-                    vidaDoInimigo = vidaBosses[idx];
-                    danoDoInimigo = danoBosses[idx];
+                    int Sorteado = sorteador.Next(nomesBosses.Length);
+                    nomeDoInimigo = nomesBosses[Sorteado];
+                    vidaDoInimigo = vidaBosses[Sorteado];
+                    danoDoInimigo = danoBosses[Sorteado];
                     descricaoSombria = descBoss[sorteador.Next(descBoss.Length)];
                 } else {
-                    int idx = sorteador.Next(nomesMonstros.Length);
-                    nomeDoInimigo = nomesMonstros[idx];
-                    vidaDoInimigo = vidaMonstros[idx];
-                    danoDoInimigo = danoMonstros[idx];
+                    int Sorteado = sorteador.Next(nomesMonstros.Length);
+                    nomeDoInimigo = nomesMonstros[Sorteado];
+                    vidaDoInimigo = vidaMonstros[Sorteado];
+                    danoDoInimigo = danoMonstros[Sorteado];
                     descricaoSombria = descMonstro[sorteador.Next(descMonstro.Length)];
                 }
 
