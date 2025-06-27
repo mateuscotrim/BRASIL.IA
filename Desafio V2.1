@@ -1,0 +1,320 @@
+using System;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        Console.OutputEncoding = Encoding.UTF8;
+
+        int Vida = 100;
+        int Ouro = 0;
+        int Kunais = 5;
+        int Pergaminhos = 0;
+        int porcaoCura = 0;
+        bool Amuleto = false;
+        bool Jogando = true;
+        Random sorteador = new Random();
+
+        string Ninja = "Hayato";
+
+        string[] descMonstro = {
+            "🌫️ O silêncio é quebrado por passos leves nas sombras...",
+            "🌒 Uma névoa fria rasteja pelo chão, trazendo presenças inquietas.",
+            "🕯️ Você sente olhares invisíveis observando cada movimento.",
+            "🌑 O vento sopra, carregando sussurros de antigos lamentos."
+        };
+
+        string[] descBoss = {
+            "💀 O ar fica pesado. Uma presença ancestral emerge das trevas.",
+            "👑 O chão treme. Você sente que está diante de algo que desafia a própria morte.",
+            "🌑 Um frio espectral envolve tudo. O tempo parece parar diante do horror.",
+            "🕸️ Sussurros antigos ecoam. Você encara o guardião das sombras."
+        };
+
+        string[] nomesMonstros = { "Sombrafera 🌑", "Besta Abissal 🐾", "Caçador Noturno 🌒", "Venenogar 🐍" };
+        int[] vidaMonstros = { 28, 24, 22, 26 };
+        int[] danoMonstros = { 12, 14, 16, 18 };
+
+        string[] nomesBosses = { "Fúriachama da Mata 🔥", "Devorador de Almas 🌲" };
+        int[] vidaBosses = { 80, 100 };
+        int[] danoBosses = { 22, 26 };
+
+        while (Jogando && Vida > 0)
+        {
+            Console.Clear();
+            Console.WriteLine("-------------------------------------------------------");
+            Console.WriteLine("        🥷 HAYATO - O NINJA SOLITÁRIO ✨        ");
+            Console.WriteLine("-------------------------------------------------------");
+            Console.WriteLine($"👤 Ninja: {Ninja}    🏅 Nível: {(Ouro / 50 + 1)}");
+            Console.WriteLine($"❤️ Vida: {Vida}/100    💰 Ouro: {Ouro}");
+            Console.WriteLine($"🗡️ Kunais: {Kunais}        📜 Pergaminhos: {Pergaminhos}");
+            Console.WriteLine($"🧿 Amuleto: {(Amuleto ? "Sim" : "Não")}     🧪 Poções de Cura: {porcaoCura}");
+            Console.WriteLine("-------------------------------------------------------\n");
+
+            Console.WriteLine("**************** 🌲 FLORESTA SOMBRIA 🌲 ******************");
+            Console.WriteLine(" (1)  Aventurar-se na floresta (feras, sombras e venenos)");
+            Console.WriteLine(" (2)  Visitar o mercador viajante 🏚️");
+            Console.WriteLine(" (0)  Sair e meditar 🌓");
+            Console.WriteLine("***********************************************************");
+            Console.Write("👉 Escolha sua ação: ");
+
+            string acao = Console.ReadLine();
+
+            switch (acao)
+            {
+                case "1":
+                    Console.Clear();
+                    bool encontrouBoss = sorteador.Next(100) < 30;
+
+                    string nomeDoInimigo;
+                    int vidaDoInimigo, danoDoInimigo;
+                    string descricaoSombria;
+
+                    if (encontrouBoss)
+                    {
+                        int Sorteado = sorteador.Next(nomesBosses.Length);
+                        nomeDoInimigo = nomesBosses[Sorteado];
+                        vidaDoInimigo = vidaBosses[Sorteado];
+                        danoDoInimigo = danoBosses[Sorteado];
+                        descricaoSombria = descBoss[sorteador.Next(descBoss.Length)];
+                    }
+                    else
+                    {
+                        int Sorteado = sorteador.Next(nomesMonstros.Length);
+                        nomeDoInimigo = nomesMonstros[Sorteado];
+                        vidaDoInimigo = vidaMonstros[Sorteado];
+                        danoDoInimigo = danoMonstros[Sorteado];
+                        descricaoSombria = descMonstro[sorteador.Next(descMonstro.Length)];
+                    }
+
+                    Console.WriteLine($"\n{descricaoSombria}\n");
+                    Console.WriteLine(encontrouBoss
+                        ? "\n👑 Chefe encontrado! Uma batalha desafiadora começa!\n"
+                        : "\n👾 Um inimigo apareceu! Que comecem os ataques!\n");
+
+                    bool fugiu = false;
+                    while (Vida > 0 && vidaDoInimigo > 0 && !fugiu)
+                    {
+                        Console.WriteLine("-------------------------------------------------------");
+                        Console.WriteLine($"👹 Inimigo: {nomeDoInimigo}");
+                        Console.WriteLine($"💔 Vida do Inimigo: {vidaDoInimigo} | ❤️ Vida do Ninja: {Vida}");
+                        Console.WriteLine("-------------------------------------------------------");
+                        Console.WriteLine(" (1)  Espada (10-14 dano) ⚔️");
+                        Console.WriteLine($" (2)  Kunai (13-17 dano) 🗡️  | Kunais: {Kunais}");
+                        Console.WriteLine(" (3)  Fugir 🏃‍♂️");
+                        if (porcaoCura > 0) Console.WriteLine($"\n (4️)  Usar Poção de cura 🧪 (+20 vida) | Porções: {porcaoCura}");
+
+                        Console.Write("👉 Escolha sua ação: ");
+                        string escolha = Console.ReadLine();
+                        int danoCausado = 0;
+
+                        switch (escolha)
+                        {
+                            case "1":
+                                danoCausado = 10 + sorteador.Next(5);
+                                vidaDoInimigo -= danoCausado;
+                                Console.WriteLine($"\n⚔️ Você ataca com a espada! {danoCausado} de dano. 💥");
+                                break;
+
+                            case "2":
+                                if (Kunais > 0)
+                                {
+                                    Kunais--;
+                                    danoCausado = sorteador.Next(13, 18);
+                                    vidaDoInimigo -= danoCausado;
+                                    Console.WriteLine($"\n🗡️ Kunai lançada! {danoCausado} de dano. Kunais restantes: {Kunais} 🎯");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("\n⚠️ Você tenta lançar uma kunai, mas está sem estoque! 😱");
+                                    Console.WriteLine("Pressione qualquer tecla para continuar...");
+                                    Console.ReadKey();
+                                    continue;
+                                }
+                                break;
+
+                            case "3":
+                                Console.WriteLine("\n🏃‍♂️ Hayato lança uma bomba de fumaça e foge para as sombras! 💨");
+                                fugiu = true;
+                                break;
+
+                            case "4":
+                                if (porcaoCura > 0)
+                                {
+                                    porcaoCura--;
+                                    Vida = Math.Min(Vida + 20, 100);
+                                    Console.WriteLine("\n🧪 Você bebe a poção e sente suas forças voltarem! 💚");
+                                    Console.WriteLine("Pressione qualquer tecla para continuar...");
+                                    Console.ReadKey();
+                                }
+                                else
+                                {
+                                    Console.WriteLine("⚠️ Você tenta usar uma poção, mas está sem estoque! 🧪");
+                                    Console.WriteLine("Pressione qualquer tecla para continuar...");
+                                    Console.ReadKey();
+                                    continue;
+                                }
+                                break;
+
+                            default:
+                                Console.WriteLine("\n❌ Escolha inválida! Digite o número da ação desejada. 🤔");
+                                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                                Console.ReadKey();
+                                continue;
+                        }
+
+                        if (fugiu) break;
+
+                        if (vidaDoInimigo > 0)
+                        {
+                            int danoRecebido = sorteador.Next(danoDoInimigo - 2, danoDoInimigo + 3);
+                            if (Amuleto && sorteador.Next(100) < 40)
+                            {
+                                danoRecebido /= 2;
+                                Console.WriteLine($"🧿 O amuleto brilha e dissipa parte do ataque! Dano reduzido para {danoRecebido} 🛡️");
+                            }
+                            Vida -= danoRecebido;
+                            Console.WriteLine($"\n💢 {nomeDoInimigo} ataca! Hayato sofre {danoRecebido} de dano. 😖");
+                        }
+
+                        if (Vida <= 0)
+                        {
+                            Console.WriteLine("\n💀 Hayato cai, mas sua lenda ecoa pelos ventos do oriente! 🪶");
+                            break;
+                        }
+
+                        if (vidaDoInimigo <= 0)
+                        {
+                            int ouroGanho = encontrouBoss ? 40 : 10;
+                            int kunaisGanhas = encontrouBoss ? 2 : 1;
+                            int pergaminhosGanhos = encontrouBoss ? 2 : 1;
+
+                            Console.WriteLine("\n🏅 Vitória! Você ganhou:");
+                            Console.WriteLine($" | 🪙 {ouroGanho}  ouro");
+                            Console.WriteLine($" | 🗡️ {kunaisGanhas} kunai(s)");
+                            Console.WriteLine($"     | 📜 {pergaminhosGanhos} pergaminho(s)");
+                            if (encontrouBoss)
+                                Console.WriteLine("\n👑 Um BOSS caiu diante de você! Parabéns, guerreiro! 🥷");
+                            else
+                                Console.WriteLine("\n✨ Mais um obstáculo superado! Continue assim! 💪");
+
+                            Ouro += ouroGanho;
+                            Kunais += kunaisGanhas;
+                            Pergaminhos += pergaminhosGanhos;
+                            break;
+                        }
+                        Console.WriteLine("\n-------------------------------------------------------");
+                        Console.WriteLine("🔄 Pressione qualquer tecla para continuar...");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                    break;
+
+                case "2":
+                    bool comprando = true;
+                    while (comprando)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("\n🏪 Você encontra o mercador viajante em uma cabana escondida:\n");
+                        Console.WriteLine(" (1)  Vender Pergaminhos 📜 (7 ouro cada)");
+                        Console.WriteLine(" (2)  Comprar Kunai 🗡️ (8 ouro cada)");
+                        Console.WriteLine(" (3)  Comprar Amuleto da Sorte 🧿 (30 ouro)");
+                        Console.WriteLine(" (4)  Comprar Poção de Cura 🧪 (18 ouro)");
+                        Console.WriteLine(" (0)  Voltar à jornada");
+
+                        Console.Write("\n👉 Escolha sua ação: ");
+                        string loja = Console.ReadLine();
+
+                        switch (loja)
+                        {
+                            case "1":
+                                if (Pergaminhos > 0)
+                                {
+                                    int valor = Pergaminhos * 7;
+                                    Ouro += valor;
+                                    Console.WriteLine($"\n💰 O mercador viajante paga {valor} ouro por {Pergaminhos} pergaminhos.");
+                                    Pergaminhos = 0;
+                                }
+                                else Console.WriteLine("\n❌ Você não tem pergaminhos para vender.");
+                                break;
+
+                            case "2":
+                                if (Ouro >= 8)
+                                {
+                                    Kunais++;
+                                    Ouro -= 8;
+                                    Console.WriteLine("\n🗡️ Você comprou 1 kunai!");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("\n❌ Ouro insuficiente!");
+                                }
+                                break;
+
+                            case "3":
+                                if (!Amuleto)
+                                {
+                                    if (Ouro >= 30)
+                                    {
+                                        Amuleto = true;
+                                        Ouro -= 30;
+                                        Console.WriteLine("\n🧿 Você recebe um amuleto protetor, símbolo de proteção dos antigos.");
+                                    }
+                                    else Console.WriteLine("\n❌ Ouro insuficiente!");
+                                }
+                                else Console.WriteLine("\n🧿 Você já possui um amuleto protetor.");
+                                break;
+
+                            case "4":
+                                if (Ouro >= 18)
+                                {
+                                    porcaoCura++;
+                                    Ouro -= 18;
+                                    Console.WriteLine("\n🧪 Você comprou 1 poção de cura!");
+                                }
+                                else Console.WriteLine("\n❌ Ouro insuficiente!");
+                                break;
+
+                            case "0":
+                                comprando = false;
+                                continue;
+
+                            default:
+                                Console.WriteLine("\n❌ Escolha inválida!");
+                                break;
+                        }
+                        Console.WriteLine("\n-------------------------------------------------------");
+                        Console.WriteLine("🔄 Pressione qualquer tecla para continuar...");
+                        Console.ReadKey();
+                    }
+                    break;
+
+                case "0":
+                    Jogando = false;
+                    Console.WriteLine("\n🌙 Hayato se senta sob a lua, medita e agradece por mais uma noite de aventuras.");
+                    break;
+
+                default:
+                    Console.WriteLine("\n❌ O vento sopra, esperando uma escolha válida...");
+                    break;
+            }
+
+            Console.WriteLine("\n-------------------------------------------------------");
+            Console.WriteLine("🔄 Pressione qualquer tecla para continuar...");
+            Console.ReadKey();
+        }
+
+        Console.Clear();
+        Console.WriteLine("-------------------------------------------------------");
+        if (Vida <= 0)
+        {
+            Console.WriteLine("💀 Hayato descansa. Sua lenda continua no vento! 🪶");
+        }
+        else
+        {
+            Console.WriteLine("🌄 O sol nasce, e Hayato parte para novas aventuras! 🥷🌞");
+            Console.WriteLine("-------------------------------------------------------");
+        }
+    }
+}
