@@ -34,12 +34,11 @@ class Program
 
         string[] nomesMonstros = { "Sombrafera 🌑", "Besta Abissal 🐾", "Caçador Noturno 🌒", "Venenogar 🐍" };
         int[] vidaMonstros = { 28, 24, 22, 26 };
-        int[] danoMonstros = { 12, 14, 16, 18 }; // Antes era 20–28 (muito alto)
+        int[] danoMonstros = { 12, 14, 16, 18 };
 
         string[] nomesBosses = { "Fúriachama da Mata 🔥", "Devorador de Almas 🌲" };
-        int[] vidaBosses = { 80, 100 };       // Pode ir até 120 no final do jogo
-        int[] danoBosses = { 22, 26 };        // Antes era 36–40 (muito alto)
-
+        int[] vidaBosses = { 80, 100 };
+        int[] danoBosses = { 22, 26 };
 
         while (Jogando && Vida > 0)
         {
@@ -103,7 +102,7 @@ class Program
                     Console.WriteLine(" (1)  Espada (10-14 dano) ⚔️");
                     Console.WriteLine($" (2)  Kunai (13-17 dano) 🗡️  | Kunais: {Kunais}");
                     Console.WriteLine(" (3)  Fugir 🏃‍♂️");
-                    if (porcaoCura < 0) Console.WriteLine($"\n (4️)  Usar Poção de cura 🧪 (+20 vida) | Porções: {porcaoCura}");
+                    if (porcaoCura > 0) Console.WriteLine($"\n (4️)  Usar Poção de cura 🧪 (+20 vida) | Porções: {porcaoCura}");
 
                     Console.Write("👉 Escolha sua ação: ");
                     string escolha = Console.ReadLine();
@@ -139,7 +138,7 @@ class Program
                     }
                     else if (escolha == "4")
                     {
-                        if (porcaoCura < 0)
+                        if (porcaoCura > 0)
                         {
                             porcaoCura--;
                             Vida = Math.Min(Vida + 20, 100);
@@ -149,12 +148,11 @@ class Program
                         }
                         else
                         {
-                            Console.WriteLine("⚠️ Você tenta usar uma porção, mas está sem estoque! 🧪");
+                            Console.WriteLine("⚠️ Você tenta usar uma poção, mas está sem estoque! 🧪");
                             Console.WriteLine("Pressione qualquer tecla para continuar...");
                             Console.ReadKey();
                             continue;
                         }
-
                     }
                     else
                     {
@@ -214,65 +212,80 @@ class Program
             }
             else if (acao == "2")
             {
-                Console.WriteLine("\n🏪 Você encontra o mercador viajante em uma cabana escondida:\n");
-                Console.WriteLine(" (1)  Vender Pergaminhos 📜 (7 ouro cada)");
-                Console.WriteLine(" (2)  Comprar Kunai 🗡️ (8 ouro cada)");
-                Console.WriteLine(" (3)  Comprar Amuleto da Sorte 🧿 (30 ouro)");
-                Console.WriteLine(" (4)  Comprar Poção de Cura 🧪 (18 ouro)");
-                Console.WriteLine(" (0)  Voltar à jornada");
-
-                Console.Write("\n👉 Escolha sua ação: ");
-
-                string loja = Console.ReadLine();
-
-                if (loja == "1")
+                bool comprando = true;
+                while (comprando)
                 {
-                    if (Pergaminhos > 0)
+                    Console.Clear();
+                    Console.WriteLine("\n🏪 Você encontra o mercador viajante em uma cabana escondida:\n");
+                    Console.WriteLine(" (1)  Vender Pergaminhos 📜 (7 ouro cada)");
+                    Console.WriteLine(" (2)  Comprar Kunai 🗡️ (8 ouro cada)");
+                    Console.WriteLine(" (3)  Comprar Amuleto da Sorte 🧿 (30 ouro)");
+                    Console.WriteLine(" (4)  Comprar Poção de Cura 🧪 (18 ouro)");
+                    Console.WriteLine(" (0)  Voltar à jornada");
+
+                    Console.Write("\n👉 Escolha sua ação: ");
+                    string loja = Console.ReadLine();
+
+                    if (loja == "1")
                     {
-                        int valor = Pergaminhos * 7;
-                        Ouro += valor;
-                        Console.WriteLine($"\n💰 O mercador viajante paga {valor} ouro por {Pergaminhos} pergaminhos.");
-                        Pergaminhos = 0;
-                    }
-                    else Console.WriteLine("\n❌ Você não tem pergaminhos para vender.");
-                }
-                else if (loja == "2")
-                {
-                    if (Ouro >= 8)
-                    {
-                        Kunais++;
-                        Ouro -= 8;
-                        Console.WriteLine("\n🗡️ Você comprou 1 kunai!");
-                    }
-                    else
-                    {
-                        Console.WriteLine("\n❌ Ouro insuficiente!");
-                    }
-                }
-                else if (loja == "3")
-                {
-                    if (!Amuleto)
-                    {
-                        if (Ouro >= 30)
+                        if (Pergaminhos > 0)
                         {
-                            Amuleto = true;
-                            Ouro -= 30;
-                            Console.WriteLine("\n🧿 Você recebe um amuleto protetor, símbolo de proteção dos antigos.");
+                            int valor = Pergaminhos * 7;
+                            Ouro += valor;
+                            Console.WriteLine($"\n💰 O mercador viajante paga {valor} ouro por {Pergaminhos} pergaminhos.");
+                            Pergaminhos = 0;
+                        }
+                        else Console.WriteLine("\n❌ Você não tem pergaminhos para vender.");
+                    }
+                    else if (loja == "2")
+                    {
+                        if (Ouro >= 8)
+                        {
+                            Kunais++;
+                            Ouro -= 8;
+                            Console.WriteLine("\n🗡️ Você comprou 1 kunai!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("\n❌ Ouro insuficiente!");
+                        }
+                    }
+                    else if (loja == "3")
+                    {
+                        if (!Amuleto)
+                        {
+                            if (Ouro >= 30)
+                            {
+                                Amuleto = true;
+                                Ouro -= 30;
+                                Console.WriteLine("\n🧿 Você recebe um amuleto protetor, símbolo de proteção dos antigos.");
+                            }
+                            else Console.WriteLine("\n❌ Ouro insuficiente!");
+                        }
+                        else Console.WriteLine("\n🧿 Você já possui um amuleto protetor.");
+                    }
+                    else if (loja == "4")
+                    {
+                        if (Ouro >= 18)
+                        {
+                            porcaoCura++;
+                            Ouro -= 18;
+                            Console.WriteLine("\n🧪 Você comprou 1 poção de cura!");
                         }
                         else Console.WriteLine("\n❌ Ouro insuficiente!");
                     }
-                    else Console.WriteLine("\n🧿 Você já possui um amuleto protetor.");
-                }
-                else if (loja == "4")
-                {
-                    if (Ouro >= 18)
+                    else if (loja == "0")
                     {
-                        porcaoCura++;
-                        Ouro -= 18;
-                        Console.WriteLine("\n🧪 Você comprou 1 porção de cura!");
-                        // Console.WriteLine("\n🧪 O mercador viajante entrega uma poção feita de ervas raras.");
+                        comprando = false;
+                        continue;
                     }
-                    else Console.WriteLine("\n❌ Ouro insuficiente!");
+                    else
+                    {
+                        Console.WriteLine("\n❌ Escolha inválida!");
+                    }
+                    Console.WriteLine("\n-------------------------------------------------------");
+                    Console.WriteLine("🔄 Pressione qualquer tecla para continuar...");
+                    Console.ReadKey();
                 }
             }
             else if (acao == "0")
